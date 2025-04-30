@@ -1,35 +1,56 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
-const roxo = '#B700AA';
-const roxo_escuro = "#9F0095"
+import { Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function App() {
+type RootStackParamList = {
+  PreCadastro: undefined;
+  // Add other routes here if needed
+};
+const navigation = useNavigation();
+const roxo = '#f900cf';
+const roxo_escuro = "#9F0095";
+const { width, height } = Dimensions.get('window');
+const fontSizeButton = 46;
+const fontSizeText = 20;
+
+export default function Landing() {
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      colors={[ roxo, roxo_escuro]}  
+      locations={[0, 0.3, 1]}  
+      style={styles.container} 
+    >
       <View style={styles.view1}>
-        <Image source={require('./assets/Parking-rafiki.png')} style={styles.imagem} />
         <Image source={require('./assets/Vector.png')} style={styles.logo} />
       </View>
       <View style={styles.view2}>
+      <Image source={require('./assets/Parking-rafiki.png')} style={styles.imagem} />
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <Text style={styles.buttonText}>Novo por aqui?</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ color: '#000000' }}>Conecte Já</Text>
+        <Text style={styles.text}>Novo por aqui?</Text>
+        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('PreCadastro')}>
+          <Text style={{ color: '#000000', fontSize: fontSizeText }}>Conecte Já</Text>
         </TouchableOpacity>
-      
-      <StatusBar style="auto" />
+       
+        <StatusBar style="auto" />
       </View>
-      
-    </View>
+      <View style={styles.footer}>
+        <Text>Todos os direitos reservados aos criadores.  </Text>
+        <Text>github.com/ondetamoto</Text>
+      </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  button:{
+  button: {
     borderRadius: 20,
-    backgroundColor: "#86007d",
+    backgroundColor: "#780371",
     alignItems: 'center',
     paddingHorizontal: "20%",
     paddingVertical: 10,
@@ -37,39 +58,59 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     width: '100%',
   },
-  buttonText:{
+  footer: {
+    width: '100%',
+    padding: 10,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+  },
+  buttonCadastro: {
+    borderRadius: 20,
+    backgroundColor: "#ffffff",
+    alignItems: 'center',
+    paddingHorizontal: "10%",
+    paddingVertical: 10,
+    marginTop: 20,
+    marginBottom: 30,
+    width: '100%',
+  },
+  text:{
     color: '#fff',
-    fontSize: 46,
+    fontSize: fontSizeText,
     fontWeight: 'semibold',
     textAlign: 'center',
   },
-  imagem:{
-width: '60%',
- height: '60%',
- resizeMode: 'contain',
+  buttonText: {
+    color: '#fff',
+    fontSize: fontSizeButton,
+    fontWeight: 'semibold',
+    textAlign: 'center',
   },
-  logo:{
-    width: '60%',
-     height: '60%',
-     resizeMode: 'contain',
-     bottom: 30
-      },
+  imagem: {
+    width: width * 0.6,
+    height: height * 0.3,
+    resizeMode: 'contain',
+    marginTop: 20,
+  },
+  logo: {
+    width: '70%',
+    height: '70%',
+    resizeMode: 'contain',
+    bottom: -30
+  },
   view1: {
     marginBottom: 20,
     width: '100%',
-    height: '35%',
-    backgroundColor: roxo,
+    height: '20%',
     alignItems: 'center',
   },
-  view2:{
+  view2: {
     alignItems: 'center',
     justifyContent: 'center'
-
   },
   container: {
     flex: 1,
-    backgroundColor: roxo_escuro,
     alignItems: 'center',
-
   },
 });
