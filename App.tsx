@@ -1,9 +1,6 @@
-import { View, Text } from "react-native";
+import RootNavigator from "./src/navigation/RootNavigator";
 
-export default function App(){
-    return(
-        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-            <Text>App</Text>
-        </View>
-    )
-}
+export default function App() {
+    return <RootNavigator />;
+  }
+  

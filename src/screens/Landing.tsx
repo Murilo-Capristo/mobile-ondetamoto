@@ -1,46 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions } from 'react-native';
+import { Button, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/RootNavigator';
 
-type RootStackParamList = {
-  PreCadastro: undefined;
-  // Add other routes here if needed
-};
-const navigation = useNavigation();
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const { width, height } = Dimensions.get('window');
 const fontSizeButton = 46;
 const fontSizeText = 20;
 
+type LandingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Landing'>;
+
 export default function Landing() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<LandingScreenNavigationProp>();
+
   return (
-    <LinearGradient
-      colors={[ roxo, roxo_escuro]}  
-      locations={[0, 0.3, 1]}  
-      style={styles.container} 
-    >
+    <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
       <View style={styles.view1}>
-        <Image source={require('./assets/Vector.png')} style={styles.logo} />
+        <Image source={require('../../assets/Vector.png')} style={styles.logo} />
       </View>
+
       <View style={styles.view2}>
-      <Image source={require('./assets/Parking-rafiki.png')} style={styles.imagem} />
-        <TouchableOpacity style={styles.button}>
+        <Image source={require('../../assets/Parking-rafiki.png')} style={styles.imagem} />
+        
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
         <Text style={styles.text}>Novo por aqui?</Text>
+
         <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('PreCadastro')}>
           <Text style={{ color: '#000000', fontSize: fontSizeText }}>Conecte Já</Text>
         </TouchableOpacity>
-       
+
         <StatusBar style="auto" />
       </View>
+
       <View style={styles.footer}>
-        <Text>Todos os direitos reservados aos criadores.  </Text>
+        <Text>Todos os direitos reservados aos criadores.</Text>
         <Text>github.com/ondetamoto</Text>
       </View>
     </LinearGradient>
