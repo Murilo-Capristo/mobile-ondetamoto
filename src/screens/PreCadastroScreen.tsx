@@ -1,4 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity, StyleSheet } from "react-native";
+import { RootStackParamList } from "../navigation/RootNavigator";
 
 const {width, height} = Dimensions.get('window');
 const fontSizeButton = 46;
@@ -6,8 +9,10 @@ const fontSizeText = 20;
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 
-
+type PreCadastroScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'PreCadastro'>;
 export default function PreCadastro() {
+   
+   const navigation = useNavigation<PreCadastroScreenNavigationProp>();
 
     const features = [
         "Organize e monitore motos, setores e acessos em um único lugar.",
@@ -20,7 +25,7 @@ export default function PreCadastro() {
         {/* Logo */}
         <View style={styles.logoContainer}>
           <Image
-            source={require("../../assets/Vector.png")} 
+            source={require("../../assets/logo-preenchida.png")} 
             style={styles.logo}
             resizeMode="contain"
           />
@@ -31,14 +36,17 @@ export default function PreCadastro() {
           <Text style={styles.title}>
             Simplifique a gestão de sua garagem com a tecnologia mais avançada
           </Text>
-          <Text style={styles.subtitle}>
-            Software que facilita o cadastro de motos e a administração de sessões de um estacionamento.
-          </Text>
-  
-          <TouchableOpacity style={styles.button}>
+
+          <Text style={styles.textBelowButton}>Novo por aqui?</Text>
+          <TouchableOpacity style={styles.button}
+            onPress={() => {
+              // Navegar para a tela de cadastro
+              navigation.navigate("Cadastro");
+
+            }}>
             <Text style={styles.buttonText}>Conecte Já</Text>
           </TouchableOpacity>
-          <Text style={styles.textBelowButton}>Novo por aqui?</Text>
+          
         </View>
   
 
@@ -75,6 +83,7 @@ export default function PreCadastro() {
     logo: {
       width: 200,
       height: 80,
+      marginTop: 30,
     },
     heroSection: {
       marginBottom: 30,
@@ -107,10 +116,11 @@ export default function PreCadastro() {
       fontSize: 16,
       color: "#000",
       textAlign: "center",
+      marginBottom: 10,
     },
     illustrationContainer: {
       alignItems: "center",
-      marginVertical: 20,
+      marginVertical: 0,
     },
     illustration: {
       width: width * 0.8,
