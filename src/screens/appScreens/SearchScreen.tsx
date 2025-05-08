@@ -1,9 +1,146 @@
-import { View, Text } from 'react-native';
+import React, { useState } from "react";
+import { Menu, Provider } from "react-native-paper";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import HeaderReduzida from "../templates/HeaderReduzida";
+const roxo = '#f900cf';
+const roxo_escuro = "#9F0095";
+const roxo_texto = "#a100ff";
+
+const searchOptions = [
+  { id: "Id", label: "Buscar ID" },
+  { id: "Tipo", label: "Buscar Tipo" },
+  { id: "Placa", label: "Buscar Placa" },
+];
+
+const categoryOptions = [
+  { id: "motos", label: "Motos" },
+  { id: "setores", label: "Setores" },
+];
 
 export default function SearchScreen() {
-    return (
-        <View>
-            <Text>SearchScreen</Text>
+    const [selectedTab, setSelectedTab] = useState(categoryOptions[0]);
+    const [filterVisible, setFilterVisible] = useState(false);
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const [search, setSearch] = useState("");
+    const [selectedFilter, setSelectedFilter] = useState(searchOptions[0]);
+
+  return (
+
+    <Provider>
+        <HeaderReduzida></HeaderReduzida>
+      <View style={styles.container}>
+        {/* Dropdown */}
+        
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Text style={styles.label}>Pesquise Motos ou Garagens Registradas.</Text>
+        <Menu
+          visible={dropdownVisible}
+          onDismiss={() => setDropdownVisible(false)}
+          anchor={
+            <TouchableOpacity onPress={() => setDropdownVisible(true)} style={styles.dropdown}>
+              <Text style={styles.dropdownText}>{selectedTab.label}</Text>
+              <Icon name="chevron-down" size={20} />
+            </TouchableOpacity>
+          }
+        >
+          {categoryOptions.map((option) => (
+            <Menu.Item
+              key={option.id}
+              onPress={() => {
+                setSelectedTab(option);
+                setDropdownVisible(false);
+              }}
+              title={option.label}
+            />
+          ))}
+        </Menu>
         </View>
-    )
+
+        {/* Search bar + filter icon */}
+        <View style={styles.searchRow}>
+          <TextInput
+            style={styles.input}
+            placeholder="Pesquise aqui..."
+            value={search}
+            onChangeText={setSearch}
+          />
+          <TouchableOpacity onPress={() => setFilterVisible(!filterVisible)} style={styles.filterButton}>
+            <AntDesign name="filter" size={30} color="#000" />
+            <Text style={{ marginLeft: 5, color: roxo_texto}}>{selectedFilter.id}</Text>
+          </TouchableOpacity>
+        </View>
+
+        {filterVisible && (
+        <View style={styles.filterOptions}>
+            {searchOptions.map((item) => (
+            <TouchableOpacity
+                key={item.id}
+                style={styles.filterItem}
+                onPress={() => {
+                setSelectedFilter(item);
+                setFilterVisible(false);
+                }}
+      >
+        <Text>{item.label}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+)}
+      </View>
+    </Provider>
+  );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        padding: 16,
+        backgroundColor: "#fff",
+        flex: 1,
+      },
+    label: {
+        fontSize: 14,
+        marginBottom: 10,
+      },
+      searchRow: {
+        flexDirection: "row",
+        alignItems: "center",
+      },
+      input: {
+        flex: 1,
+        borderRadius: 8,
+        paddingHorizontal: 10,
+        height: 40,
+        backgroundColor: "#f2f2f2",
+      },
+      filterButton: {
+        marginLeft: 10,
+        backgroundColor: "#fff",
+        padding: 8,
+        borderRadius: 8,
+      },
+      filterOptions: {
+        marginTop: 10,
+        backgroundColor: "#e0e0e0",
+        borderRadius: 8,
+        paddingVertical: 5,
+      },
+      filterItem: {
+        padding: 8,
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+      },
+      dropdown: {
+        backgroundColor: "#e0e0e0",
+        padding: 10,
+        margin:10,
+        borderRadius: 8,
+
+      },
+      dropdownText: {
+        marginRight: 5,
+        color: "#a100ff",
+        fontWeight: "bold",
+      },
+});
