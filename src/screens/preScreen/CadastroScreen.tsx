@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Icon from "react-native-vector-icons/Ionicons";
-import { RootStackParamList } from "../navigation/RootNavigator";
+import { RootStackParamList } from "../../navigation/RootNavigator";
 import Modal from "react-native-modal";
 import { useState } from "react";
 
@@ -13,12 +13,21 @@ const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const { width, height } = Dimensions.get('window');
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+type CadastroScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Cadastro'>;
 
 
 export default function Cadastro() {
-    
-    const navigation = useNavigation<LoginScreenNavigationProp>();
+    const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleCadastro = () => {
+    setModalVisible(true); 
+    setTimeout(() => {
+      setModalVisible(false);
+      navigation.popToTop(); 
+     }, 2000); 
+    }
+
+    const navigation = useNavigation<CadastroScreenNavigationProp>();
 return(
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
 
@@ -26,12 +35,26 @@ return(
     
         <View style={styles.logoContainer}>
             <Image
-                source={require("../../assets/Vector.png")} 
+                source={require("../../../assets/Vector.png")} 
                 style={styles.logo}
                 resizeMode="contain"
             />
         </View>
+        <Text style={{color:'#fff', fontSize:30, fontWeight:"300"}}>
+            Crie sua conta
+        </Text>
+
         <View style={styles.formulario}>
+  
+                  {/* Campo nome */}  
+        <View style={styles.inputContainer}>
+                <Icon name="person" size={20} color={"#fff"}></Icon>
+                <TextInput
+                placeholder="Nome"
+                placeholderTextColor="#ccc"
+                style={styles.input}
+                />
+            </View>
 
                 {/* Campo email */}
             <View style={styles.inputContainer}>
@@ -55,24 +78,25 @@ return(
         </View>
         <View>
             <TouchableOpacity style={styles.button} onPress={() => {
-                // Navegar para a tela de login
-                navigation.navigate("HomeScreen");
+                handleCadastro();
 
             }}>
-                <Text style={styles.textButton}>Login</Text>
+                <Text style={styles.textButton}>Cadastrar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{marginBottom: 30, alignItems:"center"}} onPress={() => {
-                // Navegar para a tela de cadastro
-                navigation.navigate("PreCadastro");
-
-            }}>
-            <Text style={{color:'#fff', fontSize:20, fontWeight:"300"}}>
-                Crie uma conta
-            </Text>
-        </TouchableOpacity>
-
         </View>
+
+        <Modal
+        isVisible={isModalVisible}
+        animationIn="slideInDown"
+        animationOut="slideOutUp"
+        backdropOpacity={0} // Remove o fundo escuro
+        style={styles.modal}
+      >
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Cadastro Bem-Sucedido!</Text>
+        </View>
+      </Modal>
         </LinearGradient>
 
 
@@ -120,7 +144,7 @@ const styles = StyleSheet.create({
         height:'30%',
         borderRadius:20,
         paddingBottom: 40,
-        paddingTop: 40,
+        
 
         // marginTop:200,
         justifyContent: 'space-between',
@@ -138,8 +162,25 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         paddingHorizontal: '20%',
         alignItems: "center",
-        marginBottom: 210,
+        marginBottom: 90,
         // marginTop: 20,
         width:'80%',
     },
+    
+  modal: {
+    justifyContent: "flex-start", 
+    margin: 0, 
+  },
+  modalContainer: {
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 50, 
+  },
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
+  },
 })

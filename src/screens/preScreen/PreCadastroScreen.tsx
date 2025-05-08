@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity, StyleSheet } from "react-native";
-import { RootStackParamList } from "../navigation/RootNavigator";
+import { RootStackParamList } from "../../navigation/RootNavigator";
 
 const {width, height} = Dimensions.get('window');
 const fontSizeButton = 46;
@@ -25,7 +25,7 @@ export default function PreCadastro() {
         {/* Logo */}
         <View style={styles.logoContainer}>
           <Image
-            source={require("../../assets/logo-preenchida.png")} 
+            source={require("../../../assets/logo-preenchida.png")} 
             style={styles.logo}
             resizeMode="contain"
           />
@@ -40,8 +40,7 @@ export default function PreCadastro() {
           <Text style={styles.textBelowButton}>Novo por aqui?</Text>
           <TouchableOpacity style={styles.button}
             onPress={() => {
-              // Navegar para a tela de cadastro
-              navigation.navigate("Cadastro");
+              navigation.push("Cadastro");
 
             }}>
             <Text style={styles.buttonText}>Conecte Já</Text>
@@ -53,7 +52,7 @@ export default function PreCadastro() {
         <View style={styles.illustrationContainer}>
         
           <Image
-            source={require("../../assets/Parking-rafiki.png")}
+            source={require("../../../assets/Parking-rafiki.png")}
             style={styles.illustration}
             resizeMode="contain"
           />

@@ -4,30 +4,47 @@ import IconFont from "react-native-vector-icons/Fontisto";
 import MCI from "react-native-vector-icons/MaterialCommunityIcons";
 import Feather from "react-native-vector-icons/Feather";
 import HeaderTemplate from "../templates/HeaderTemplate";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../navigation/RootNavigator";
+
+
+import { JSX } from "react";
+
+type HomeScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'HomeScreen'>;
+
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 
-const featureCards=[
+const featureCards = [
     {
         title: "Motos",
+        navegacao: "SearchScreen",
+        param: "motos",
         icon: <IconFont name="motorcycle" size={50} color={roxo_escuro} />,
       },
       {
         title: "Cadastrar Moto",
+        navegacao: "SubmitScreen",
+        param: "motos",
         icon: <Feather name="plus-square" size={50} color={roxo_escuro} />, 
-        multiline: true,
       },
       {
         title: "Setores",
+        navegacao: "SearchScreen",
+        param: "setores",
         icon: <MCI name="garage" size={50} color={roxo_escuro} />, 
       },
       {
         title: "Cadastrar Setor",
+        navegacao: "SubmitScreen",
+        param: "setores",
         icon: <Feather name="plus-square" size={50} color={roxo_escuro} />, 
       },
-]
-export default function Home() {
+];
+export default function HomeScreen() {
+      const navigation = useNavigation<HomeScreenNavigationProp>();
     return (
         <View style={{ flex: 1, backgroundColor: "#fff" }}>
             <HeaderTemplate></HeaderTemplate>
@@ -36,7 +53,11 @@ export default function Home() {
             </View>
             <View style={styles.container}>
                 {featureCards.map((card, index) => (
-                    <TouchableOpacity key={index} style={styles.card}>
+                    <TouchableOpacity key={index} style={styles.card}
+                        onPress={() => {
+                            navigation.navigate(card.navegacao, { param: card.param });
+                        }
+                    }>
                         <View style={styles.iconContainer}>{card.icon}</View>
                         <Text style={styles.cardTitle}>{card.title}</Text>
                     </TouchableOpacity>

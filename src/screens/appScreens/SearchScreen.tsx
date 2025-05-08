@@ -4,9 +4,12 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-nativ
 import Icon from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import HeaderReduzida from "../templates/HeaderReduzida";
+import { RouteProp, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../../navigation/RootNavigator";
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const roxo_texto = "#a100ff";
+type SearchScreenRouteProp = RouteProp<RootStackParamList, "SearchScreen">;
 
 
 const searchOptions = [
@@ -21,13 +24,23 @@ const categoryOptions = [
 ];
 
 export default function SearchScreen() {
-    const [selectedTab, setSelectedTab] = useState(categoryOptions[0]);
+
+
+
+    const route = useRoute<SearchScreenRouteProp>();
+    const { param = "motos" } = route.params || {}; 
+
+
+    const [selectedTab, setSelectedTab] = useState(() => {
+        return param ? categoryOptions.find((option) => option.id === param) || categoryOptions[0]
+        : categoryOptions[0];
+    });
     const [filterVisible, setFilterVisible] = useState(false);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [search, setSearch] = useState("");
 
     const relativeOptions = searchOptions.map((option) => {
-        if (selectedTab.id === "setores" && option.id === "Placa") {
+        if (selectedTab.id === "setores" && param && option.id === "Placa") {
           return { ...option, id: "Nome", label: "Buscar Nome" };
         }
         return option;

@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/RootNavigator';
+import { RootStackParamList } from "../../navigation/RootNavigator";
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
@@ -20,19 +20,19 @@ export default function Landing() {
   return (
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
       <View style={styles.view1}>
-        <Image source={require('../../assets/Vector.png')} style={styles.logo} />
+        <Image source={require('../../../assets/Vector.png')} style={styles.logo} />
       </View>
 
       <View style={styles.view2}>
-        <Image source={require('../../assets/Parking-rafiki.png')} style={styles.imagem} />
+        <Image source={require('../../../assets/Parking-rafiki.png')} style={styles.imagem} />
         
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.push('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Novo por aqui?</Text>
 
-        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.navigate('PreCadastro')}>
+        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.push('PreCadastro')}>
           <Text style={{ color: '#000000', fontSize: fontSizeText }}>Conecte Já</Text>
         </TouchableOpacity>
 

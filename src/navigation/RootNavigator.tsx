@@ -1,11 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Landing from "../screens/LandingScreen";
-import PreCadastro from "../screens/PreCadastroScreen";
-import Login from "../screens/LoginScreen";
-import Cadastro from "../screens/CadastroScreen";
+import Landing from "../screens/preScreen/LandingScreen";
+import PreCadastro from "../screens/preScreen/PreCadastroScreen";
+import Login from "../screens/preScreen/LoginScreen";
+import Cadastro from "../screens/preScreen/CadastroScreen";
 import HomeScreen from "../screens/appScreens/HomeScreen";
 import BottomTabsNavigator from "./BottomTabsNavigator";
+import SearchScreen from "../screens/appScreens/SearchScreen";
+import SubmitScreen from "../screens/appScreens/SubmitScreen";
 
 export type RootStackParamList = {
     Landing: undefined;
@@ -13,6 +15,8 @@ export type RootStackParamList = {
     Login: undefined;
     Cadastro: undefined;
     HomeScreen: undefined;
+    SearchScreen: {param: string};
+    SubmitScreen: {param:string};
   };
   
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +33,14 @@ export type RootStackParamList = {
           name="HomeScreen" 
           component={BottomTabsNavigator} 
           options={{headerShown: false}} /> 
+          <Stack.Screen 
+          name="SearchScreen" 
+          component={SearchScreen} 
+          options={{headerShown: false}} />
+          <Stack.Screen 
+          name="SubmitScreen" 
+          component={SubmitScreen} 
+          options={{headerShown: false}} />
         </Stack.Navigator>
       </NavigationContainer>
     );
