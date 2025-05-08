@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Provider } from "react-native-paper";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -7,6 +7,7 @@ import HeaderReduzida from "../templates/HeaderReduzida";
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const roxo_texto = "#a100ff";
+
 
 const searchOptions = [
   { id: "Id", label: "Buscar ID" },
@@ -24,14 +25,28 @@ export default function SearchScreen() {
     const [filterVisible, setFilterVisible] = useState(false);
     const [dropdownVisible, setDropdownVisible] = useState(false);
     const [search, setSearch] = useState("");
+
+    const relativeOptions = searchOptions.map((option) => {
+        if (selectedTab.id === "setores" && option.id === "Placa") {
+          return { ...option, id: "Nome", label: "Buscar Nome" };
+        }
+        return option;
+    });
     const [selectedFilter, setSelectedFilter] = useState(searchOptions[0]);
+
+    useEffect(() => {
+        const currentIds = relativeOptions.map((option) => option.id);
+        if (!currentIds.includes(selectedFilter.id)) {
+          setSelectedFilter(relativeOptions[0]);
+        }
+    }, [selectedTab]);
 
   return (
 
     <Provider>
         <HeaderReduzida></HeaderReduzida>
       <View style={styles.container}>
-        {/* Dropdown */}
+
         
         <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Text style={styles.label}>Pesquise Motos ou Garagens Registradas.</Text>
@@ -58,7 +73,7 @@ export default function SearchScreen() {
         </Menu>
         </View>
 
-        {/* Search bar + filter icon */}
+   
         <View style={styles.searchRow}>
           <TextInput
             style={styles.input}
@@ -74,7 +89,7 @@ export default function SearchScreen() {
 
         {filterVisible && (
         <View style={styles.filterOptions}>
-            {searchOptions.map((item) => (
+            {relativeOptions.map((item) => (
             <TouchableOpacity
                 key={item.id}
                 style={styles.filterItem}
