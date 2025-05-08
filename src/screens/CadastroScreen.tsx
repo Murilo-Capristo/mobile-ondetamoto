@@ -45,10 +45,20 @@ return(
         </Text>
 
         <View style={styles.formulario}>
+  
+                  {/* Campo nome */}  
+        <View style={styles.inputContainer}>
+                <Icon name="person" size={20} color={"#fff"}></Icon>
+                <TextInput
+                placeholder="Nome"
+                placeholderTextColor="#ccc"
+                style={styles.input}
+                />
+            </View>
 
                 {/* Campo email */}
             <View style={styles.inputContainer}>
-                <Icon name="person" size={20} color={"#fff"}></Icon>
+                <Icon name="mail-outline" size={20} color={"#fff"}></Icon>
                 <TextInput
                 placeholder="Email"
                 placeholderTextColor="#ccc"
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
         height:'30%',
         borderRadius:20,
         paddingBottom: 40,
-        paddingTop: 40,
+        
 
         // marginTop:200,
         justifyContent: 'space-between',

@@ -35,7 +35,7 @@ return(
 
                 {/* Campo email */}
             <View style={styles.inputContainer}>
-                <Icon name="person" size={20} color={"#fff"}></Icon>
+                <Icon name="mail-outline" size={20} color={"#fff"}></Icon>
                 <TextInput
                 placeholder="Email"
                 placeholderTextColor="#ccc"
