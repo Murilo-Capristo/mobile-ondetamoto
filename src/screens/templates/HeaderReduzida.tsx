@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,Image } from 'react-native';
+import { View, Text,StyleSheet,Image, Touchable, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 
 const roxo = '#f900cf';
@@ -10,17 +10,19 @@ export default function HeaderReduzida() {
             <View style={styles.header}>
             <View style={styles.topHeader}>
                 <View style={styles.linkProfile}>
-                    <Icon 
-                name="person-circle-outline" 
-                size={30} 
-                color={"#000"}
-                ></Icon>
-                <Text style={styles.TextProfile}>Arnaldo</Text>
-                </View>
+                            <Icon 
+                    name="person-circle-outline" 
+                    size={30} 
+                    color={"#000"}
+                    ></Icon>
+                    <Text style={styles.TextProfile}>Arnaldo</Text>
+       
+                    </View>
                 <View>
                 <Image 
                 source={require("../../../assets/logo-preenchida.png")}
                 style={styles.logo} />
+                    
                 </View>
             </View>
             </View>

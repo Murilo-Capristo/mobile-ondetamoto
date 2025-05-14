@@ -59,6 +59,7 @@ export default function SearchScreen() {
     <Provider>
         <HeaderReduzida></HeaderReduzida>
       <View style={styles.container}>
+        
 
         
         <View style={{ flexDirection: "row", alignItems: "center" }}>

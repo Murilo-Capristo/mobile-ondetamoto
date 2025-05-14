@@ -26,7 +26,7 @@ const featureCards = [
       },
       {
         title: "Cadastrar Moto",
-        navegacao: "SubmitScreen",
+        navegacao: "CadastroMoto",
         param: "motos",
         icon: <Feather name="plus-square" size={50} color={roxo_escuro} />, 
       },

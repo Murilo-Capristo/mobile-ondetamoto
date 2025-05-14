@@ -32,14 +32,24 @@ return(
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
 
 
-    
-        <View style={styles.logoContainer}>
+        <View>
+        <TouchableOpacity>
+              <Icon
+                name="arrow-back-outline"
+                size={30}
+                color={"white"}
+                style={{ marginTop: 30, marginLeft: 10 }}
+                onPress={() => navigation.goBack()}/>
+            </TouchableOpacity>
+            <View style={styles.logoContainer}>
             <Image
                 source={require("../../../assets/Vector.png")} 
                 style={styles.logo}
                 resizeMode="contain"
             />
         </View>
+        </View>
+        
         <Text style={{color:'#fff', fontSize:30, fontWeight:"300"}}>
             Crie sua conta
         </Text>

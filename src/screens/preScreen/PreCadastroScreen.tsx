@@ -2,6 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, Text, ScrollView, Image, Dimensions, TouchableOpacity, StyleSheet } from "react-native";
 import { RootStackParamList } from "../../navigation/RootNavigator";
+import Icon from "react-native-vector-icons/Ionicons";
+
 
 const {width, height} = Dimensions.get('window');
 const fontSizeButton = 46;
@@ -23,13 +25,26 @@ export default function PreCadastro() {
     return (
         <ScrollView style={styles.container}>
         {/* Logo */}
-        <View style={styles.logoContainer}>
+        <View>
+          <View>
+            <TouchableOpacity>
+              <Icon
+                name="arrow-back-outline"
+                size={30}
+                color={roxo_escuro}
+                style={{ marginTop: 30, marginLeft: 10 }}
+                onPress={() => navigation.goBack()}/>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.logoContainer}>
           <Image
             source={require("../../../assets/logo-preenchida.png")} 
             style={styles.logo}
             resizeMode="contain"
           />
         </View>
+        </View>
+        
   
 
         <View style={styles.heroSection}>

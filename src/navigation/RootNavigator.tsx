@@ -8,6 +8,7 @@ import HomeScreen from "../screens/appScreens/HomeScreen";
 import BottomTabsNavigator from "./BottomTabsNavigator";
 import SearchScreen from "../screens/appScreens/SearchScreen";
 import SubmitScreen from "../screens/appScreens/SubmitScreen";
+import CadastroMoto from "../screens/appScreens/CadastroMoto";
 
 export type RootStackParamList = {
     Landing: undefined;
@@ -17,6 +18,7 @@ export type RootStackParamList = {
     HomeScreen: undefined;
     SearchScreen: {param: string};
     SubmitScreen: {param:string};
+    CadastroMoto: undefined;
   };
   
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +31,7 @@ export type RootStackParamList = {
           <Stack.Screen name="PreCadastro" component={PreCadastro} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Cadastro" component={Cadastro} />
+          <Stack.Screen name="CadastroMoto" component={CadastroMoto} />
           <Stack.Screen 
           name="HomeScreen" 
           component={BottomTabsNavigator} 
