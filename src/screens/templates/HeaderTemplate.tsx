@@ -1,22 +1,30 @@
-import { View, Text,StyleSheet,Image } from 'react-native';
+import { View, Text,StyleSheet,Image, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 
 export default function HeaderTemplate() {
+
+        const navigation = useNavigation();
+    
     return (
         <View>
             <View style={styles.header}>
             <View style={styles.topHeader}>
-                <View style={styles.linkProfile}>
-                    <Icon 
-                name="person-circle-outline" 
-                size={30} 
-                color={"#000"}
-                ></Icon>
-                <Text style={styles.TextProfile}>Arnaldo</Text>
-                </View>
+                <TouchableOpacity style={styles.linkProfile} onPress={() => navigation.reset({
+                                    index: 0,
+                                    routes: [{ name: "Landing" }],
+                                })}>
+                                            <Icon 
+                                    name="person-circle-outline" 
+                                    size={30} 
+                                    color={"#000"}
+                                    ></Icon>
+                                    <Text style={styles.TextProfile}>Arnaldo</Text>
+                       
+                                    </TouchableOpacity>
                 <View>
                 <Image 
                 source={require("../../../assets/logo-preenchida.png")}

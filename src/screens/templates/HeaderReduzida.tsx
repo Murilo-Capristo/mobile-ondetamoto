@@ -1,15 +1,21 @@
 import { View, Text,StyleSheet,Image, Touchable, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
+
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 
 export default function HeaderReduzida() {
+    const navigation = useNavigation();
     return (
         <View>
             <View style={styles.header}>
             <View style={styles.topHeader}>
-                <View style={styles.linkProfile}>
+                <TouchableOpacity style={styles.linkProfile} onPress={() => navigation.reset({
+                    index: 0,
+                    routes: [{ name: "Landing" }],
+                })}>
                             <Icon 
                     name="person-circle-outline" 
                     size={30} 
@@ -17,7 +23,7 @@ export default function HeaderReduzida() {
                     ></Icon>
                     <Text style={styles.TextProfile}>Arnaldo</Text>
        
-                    </View>
+                    </TouchableOpacity>
                 <View>
                 <Image 
                 source={require("../../../assets/logo-preenchida.png")}

@@ -44,25 +44,54 @@ export default function CadastroMoto() {
     };
 
     useEffect(() => {
+        const fetchStoredMotos = async () => {
+            try {
+                const storedMotos = await AsyncStorage.getItem("detectedMotos");
+                if (storedMotos) {
+                    setDetectedMotos(JSON.parse(storedMotos));
+                    console.log("Motos recuperadas do armazenamento:", JSON.parse(storedMotos));
+                }
+            } catch (error) {
+                console.error("Erro ao recuperar motos do armazenamento:", error);
+            }
+        };
+    
+        fetchStoredMotos();
         getMoto();
+    
         return () => {
-            setIsPageExited(true); 
+            setIsPageExited(true);
         };
     }, []);
-
+    
     const handleMoto = async () => {
         setIsDetecting(true);
-        setDetectedMotos([]);
-
-        setTimeout(() => {
-            const motosDetectadas = Array.from({ length: 3 }, () => ({
-                tagId: Math.floor(1000 + Math.random() * 9000).toString(),
-            }));
-            setDetectedMotos(motosDetectadas);
-            console.log("Motos detectadas:", motosDetectadas);
+    
+        try {
+            const storedMotos = await AsyncStorage.getItem("detectedMotos");
+            if (storedMotos) {
+                setTimeout(() => {
+                    setDetectedMotos(JSON.parse(storedMotos));
+                    console.log("Motos recuperadas do armazenamento:", JSON.parse(storedMotos));
+                    setIsDetecting(false);
+                }, 1000);
+            } else {
+                setTimeout(async () => {
+                    const motosDetectadas = Array.from({ length: 3 }, () => ({
+                        tagId: Math.floor(1000 + Math.random() * 9000).toString(),
+                    }));
+                    setDetectedMotos(motosDetectadas);
+                    await AsyncStorage.setItem("detectedMotos", JSON.stringify(motosDetectadas));
+                    console.log("Motos detectadas e salvas:", motosDetectadas);
+                    setIsDetecting(false);
+                }, 1000);
+            }
+        } catch (error) {
+            console.error("Erro ao detectar motos:", error);
             setIsDetecting(false);
-        }, 1000);
+        }
     };
+
 
     return (
         <View>
@@ -97,12 +126,11 @@ export default function CadastroMoto() {
                         <View style={styles.buscando}>
                             <Text style={styles.titlebuscando}>Motos Detectadas:</Text>
                             {detectedMotos.map((moto, index) => (
-                                <TouchableOpacity style={styles.motos}>
-                                    <Text key={index} style={styles.textMotos}>
-                                    {`Tag - ${moto.tagId}`}
-                                </Text>
+                                <TouchableOpacity key={index} style={styles.motos}>
+                                    <Text style={styles.textMotos}>
+                                        {`Tag - ${moto.tagId}`}
+                                    </Text>
                                 </TouchableOpacity>
-                                
                             ))}
                         </View>
                     </View>
