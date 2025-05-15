@@ -6,6 +6,7 @@ export default function FormMoto(){
     return(
         <Provider>
             <HeaderReduzida></HeaderReduzida>
+            
             <View style={styles.container}>
                 <View style={styles.tag}>
                     <Text style={styles.textTag}>Tag xxxx</Text>
@@ -30,8 +31,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: 20,
+        backgroundColor: '#F2F2F2',
+
+        margin:40,
     },
     tag: {
         
