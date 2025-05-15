@@ -126,7 +126,7 @@ export default function CadastroMoto() {
                         <View style={styles.buscando}>
                             <Text style={styles.titlebuscando}>Motos Detectadas:</Text>
                             {detectedMotos.map((moto, index) => (
-                                <TouchableOpacity key={index} style={styles.motos}>
+                                <TouchableOpacity key={index} style={styles.motos} onPress={() => {navigation.navigate("FormMoto")}}>
                                     <Text style={styles.textMotos}>
                                         {`Tag - ${moto.tagId}`}
                                     </Text>

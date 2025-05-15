@@ -3,21 +3,26 @@ import IconFont from "react-native-vector-icons/Fontisto";
 import MCI from "react-native-vector-icons/MaterialCommunityIcons";
 import HeaderTemplate from '../templates/HeaderTemplate';
 import HeaderReduzida from '../templates/HeaderReduzida';
+import { useNavigation } from '@react-navigation/native';
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const featureCards=[
     {
         title: "Motos",
+        navegacao: "CadastroMoto",
         icon: <IconFont name="motorcycle" size={50} color={roxo_escuro} />,
       },
       {
         title: "Setores",
+        navegacao: "CadastroSetor",
         icon: <MCI name="garage" size={50} color={roxo_escuro} />, 
         },
 ]
 
 export default function SubmitScreen() {
+    const navigation = useNavigation();
+    
     return (
         <View>
 <HeaderReduzida></HeaderReduzida>
@@ -26,7 +31,10 @@ export default function SubmitScreen() {
         </View>
         <View style={styles.container}>
             {featureCards.map((card, index) => (
-                <TouchableOpacity key={index} style={styles.card}>
+                <TouchableOpacity key={index} style={styles.card}
+                onPress={() => {
+                    navigation.navigate(card.navegacao);
+                }}>
                     <View style={styles.iconContainer}>{card.icon}</View>
                     <Text style={styles.cardTitle}>{card.title}</Text>
                 </TouchableOpacity>

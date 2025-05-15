@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-nativ
 import Icon from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import HeaderReduzida from "../templates/HeaderReduzida";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { RootStackParamList } from "../../navigation/RootNavigator";
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
@@ -24,7 +24,7 @@ const categoryOptions = [
 ];
 
 export default function SearchScreen() {
-
+  const navigation = useNavigation();
 
 
     const route = useRoute<SearchScreenRouteProp>();
@@ -59,7 +59,10 @@ export default function SearchScreen() {
     <Provider>
         <HeaderReduzida></HeaderReduzida>
       <View style={styles.container}>
-        
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.voltarBtn}>
+                        <Icon name="arrow-back" size={28} color={roxo_escuro} />
+                    
+                    </TouchableOpacity>
 
         
         <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
       },
+      
       input: {
         flex: 1,
         borderRadius: 8,

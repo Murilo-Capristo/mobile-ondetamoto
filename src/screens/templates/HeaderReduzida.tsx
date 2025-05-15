@@ -10,8 +10,12 @@ export default function HeaderReduzida() {
     const navigation = useNavigation();
     return (
         <View>
+            
             <View style={styles.header}>
+                
+                
             <View style={styles.topHeader}>
+                
                 <TouchableOpacity style={styles.linkProfile} onPress={() => navigation.reset({
                     index: 0,
                     routes: [{ name: "Landing" }],
@@ -69,6 +73,13 @@ const styles = StyleSheet.create({
         height: 50,
         left: 20,
         top: 30,
+    },
+    voltarBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        position: "absolute",
+        left: 20,
+
     },
     logo:{
         width: 120,

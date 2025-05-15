@@ -38,7 +38,7 @@ const featureCards = [
       },
       {
         title: "Cadastrar Setor",
-        navegacao: "SubmitScreen",
+        navegacao: "CadastroSetor",
         param: "setores",
         icon: <Feather name="plus-square" size={50} color={roxo_escuro} />, 
       },
