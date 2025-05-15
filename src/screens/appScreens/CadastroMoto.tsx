@@ -1,24 +1,116 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import HeaderReduzida from "../templates/HeaderReduzida";
 import { StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+const roxo = '#f900cf';
+const roxo_escuro = "#9F0095";
+const roxo_texto = "#a100ff";
 
 export default function CadastroMoto() {
+    const navigation = useNavigation();
+    
+    const [moto, setMoto] = useState({
+        tagId: "",
+    });
+    const [detectedMotos, setDetectedMotos] = useState<{ tagId: string }[]>([]);
+
+    const [isDetecting, setIsDetecting] = useState(false);  
+    const [isPageExited, setIsPageExited] = useState(false);
+
+    const saveMoto = async (motoData) => {
+        try {
+            await AsyncStorage.setItem("motoData", JSON.stringify(motoData));
+            console.log("Salvo");
+        }
+        catch (error) {
+            console.error("Erro ao salvar:", error);
+        }
+    };
+    
+    const getMoto = async () => {
+        try {
+            const storedMoto = await AsyncStorage.getItem("motoData");
+            if (storedMoto) {
+                const parsedMoto = JSON.parse(storedMoto);
+                setMoto(parsedMoto);
+                console.log("Moto recuperada:", parsedMoto);
+            }
+        } catch (error) {
+            console.error("Erro ao obter:", error);
+        }
+    };
+
+    useEffect(() => {
+        getMoto();
+        return () => {
+            setIsPageExited(true); 
+        };
+    }, []);
+
+    const handleMoto = async () => {
+        setIsDetecting(true);
+        setDetectedMotos([]);
+
+        setTimeout(() => {
+            const motosDetectadas = Array.from({ length: 3 }, () => ({
+                tagId: Math.floor(1000 + Math.random() * 9000).toString(),
+            }));
+            setDetectedMotos(motosDetectadas);
+            console.log("Motos detectadas:", motosDetectadas);
+            setIsDetecting(false);
+        }, 1000);
+    };
+
     return (
         <View>
-            <HeaderReduzida></HeaderReduzida>
+            <HeaderReduzida />
             <View style={styles.title}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.voltarBtn}>
+    <Icon name="arrow-back" size={28} color={roxo_escuro} />
+
+</TouchableOpacity>
                 <Text style={styles.titleText}>Cadastro de Moto</Text>
             </View>
-            <View style={styles.detectarMoto}>
+            
+            <TouchableOpacity
+                style={styles.detectarMoto}
+                onPress={handleMoto}
+                disabled={isDetecting || isPageExited}
+            >
                 <Icon name="wifi-tethering" style={styles.icon}></Icon>
                 <Text style={styles.detecText}>Detectar Motocicleta</Text>
-            </View>
-        </View>
-    )
-}
+            </TouchableOpacity>
 
+            {isDetecting ? (
+                <View style={styles.boxBuscando}>
+                    <View style={styles.buscando}>
+                        <Text style={styles.titlebuscando}>Buscando...</Text>
+                    </View>
+                </View>
+            ) : (
+                detectedMotos.length > 0 && (
+                    <View style={[styles.boxBuscando , 
+                        { height: detectedMotos.length * 100 }]}>
+                        <View style={styles.buscando}>
+                            <Text style={styles.titlebuscando}>Motos Detectadas:</Text>
+                            {detectedMotos.map((moto, index) => (
+                                <TouchableOpacity style={styles.motos}>
+                                    <Text key={index} style={styles.textMotos}>
+                                    {`Tag - ${moto.tagId}`}
+                                </Text>
+                                </TouchableOpacity>
+                                
+                            ))}
+                        </View>
+                    </View>
+                )
+            )}
+        </View>
+    );
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -27,15 +119,55 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#fff",
     },
-    detecText:{
+    voltarBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        position: "absolute",
+        left: 20,
+
+    },
+    motos: {
+        marginTop: 10,
+        paddingTop: 10,
+        borderTopColor: "#e6e6e6",
+        borderTopWidth: 1,
+        width: "100%",
+    },
+    
+    textMotos:{
+        fontSize: 28,
+        fontWeight: "400",
+        color: "#000",
+    },
+    boxBuscando: {
+        marginTop: 50,
+        marginHorizontal: 30,
+        paddingTop: 40,
+        paddingBottom: 40,
+        paddingHorizontal: 10,
+        backgroundColor: "#DCDEDF",
+        borderRadius: 20,
+    },
+    
+    titlebuscando: {
+        fontSize: 18,
+        fontWeight: "semibold",
+        color: "#8b8b8b",
+    },
+    buscando: {
+        justifyContent: "center",
+        alignItems: "flex-start",
+        paddingHorizontal: 10, 
+    },
+    
+    detecText: {
         fontSize: 29,
         fontWeight: "semibold",
         color: "#000",
-    }
-    ,detectarMoto: {
-
-        marginTop:50,
-        margin:40,
+    },
+    detectarMoto: {
+        marginTop: 50,
+        margin: 40,
         paddingTop: 40,
         paddingBottom: 40,
         justifyContent: "center",
@@ -62,5 +194,4 @@ const styles = StyleSheet.create({
         color: "#009213",
         fontSize: 35,
     },
-
 });
