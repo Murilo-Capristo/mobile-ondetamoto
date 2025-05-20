@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import HeaderReduzida from '../templates/HeaderReduzida';
 import { Menu, Provider } from 'react-native-paper';
 import { useState } from 'react';
@@ -24,6 +24,15 @@ const tipoSetores = [
 export default function CadastroSetor(){
 
     const navigation = useNavigation();
+    	      const [isModalVisible, setModalVisible] = useState(false);
+
+  const handleCadastro = () => {
+    setModalVisible(true); 
+    setTimeout(() => {
+      setModalVisible(false);
+      navigation.popToTop(); 
+     }, 2000); 
+    }
         const [dropdownVisible, setDropdownVisible] = useState(false);
         const [selectedTipo, setSelectedTipo] = useState<string | null>(null);
         const [selectedSetor, setSelectedSetor] = useState<string | null>(null);
@@ -82,10 +91,22 @@ export default function CadastroSetor(){
                 </View>
             </View>
             <View style={styles.containerBotao}>
-                <TouchableOpacity style={styles.cadasBtn} onPress={() => navigation.popToTop()}>
+                <TouchableOpacity style={styles.cadasBtn} onPress={() => handleCadastro()}>
                     <Text style={styles.cadasText}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>
+                    <Modal
+                            visible={isModalVisible}
+                            transparent
+                            onRequestClose={() => setModalVisible(false)}
+                          >
+                            <View style={styles.modal}>
+                              <View style={styles.modalContainer}>
+                                <Text style={styles.modalTitle}>Cadastro Bem-Sucedido!</Text>
+                              </View>
+                            </View>
+                          </Modal>
+	  
         </Provider>
     )
 }
@@ -115,6 +136,7 @@ const styles = StyleSheet.create({
         left: 20,
 
     },
+    
 
     cadasText: {
         color: '#fff',

@@ -23,6 +23,19 @@ const categoryOptions = [
   { id: "setores", label: "Setores" },
 ];
 
+const motosMock = [
+  { id: "2334", tipo: "Scooter", placa: "ABC1234" },
+  { id: "1234", tipo: "Custom", placa: "XYZ5678" },
+  { id: "4321", tipo: "Sport", placa: "DEF9012" },
+];
+
+const setoresMock = [
+  { id: "S1", nome: "Administrativo" },
+  { id: "S2", nome: "Manutenção" },
+  { id: "S3", nome: "Logística" },
+];
+
+
 export default function SearchScreen() {
   const navigation = useNavigation();
 
@@ -53,6 +66,34 @@ export default function SearchScreen() {
           setSelectedFilter(relativeOptions[0]);
         }
     }, [selectedTab]);
+
+    const renderResultados = () => {
+  if (selectedTab.id === "motos") {
+    return (
+      <View style={styles.resultadosContainer}>
+        {motosMock.map((moto) => (
+          <View key={moto.id} style={styles.resultadoItem}>
+            <Text style={styles.resultadoTitulo}>ID: {moto.id}</Text>
+            <Text>Tipo: {moto.tipo}</Text>
+            <Text>Placa: {moto.placa}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  } else if (selectedTab.id === "setores") {
+    return (
+      <View style={styles.resultadosContainer}>
+        {setoresMock.map((setor) => (
+          <View key={setor.id} style={styles.resultadoItem}>
+            <Text style={styles.resultadoTitulo}>ID: {setor.id}</Text>
+            <Text>Nome: {setor.nome}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  }
+  return null;
+};
 
   return (
 
@@ -120,6 +161,8 @@ export default function SearchScreen() {
     ))}
   </View>
 )}
+{renderResultados()}
+
       </View>
     </Provider>
   );
@@ -183,4 +226,21 @@ const styles = StyleSheet.create({
         color: "#a100ff",
         fontWeight: "bold",
       },
+      resultadosContainer: {
+  marginTop: 20,
+},
+resultadoItem: {
+  padding: 10,
+  marginBottom: 10,
+  backgroundColor: "#f4f4f4",
+  borderRadius: 8,
+  borderWidth: 1,
+  borderColor: "#ccc",
+},
+resultadoTitulo: {
+  fontWeight: "bold",
+  color: roxo_escuro,
+  marginBottom: 4,
+},
+
 });
