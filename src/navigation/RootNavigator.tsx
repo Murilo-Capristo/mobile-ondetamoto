@@ -11,8 +11,11 @@ import SubmitScreen from "../screens/appScreens/SubmitScreen";
 import CadastroMoto from "../screens/appScreens/CadastroMoto";
 import CadastroSetor from "../screens/appScreens/CadastroSetor";
 import FormMoto from "../screens/appScreens/FormMoto";
+import Splash from "../screens/Splash";
+
 
 export type RootStackParamList = {
+    Splash: undefined;
     Landing: undefined;
     PreCadastro: undefined;
     Login: undefined;
@@ -30,7 +33,8 @@ export type RootStackParamList = {
   export default function RootNavigator() {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Landing" component={Landing} />
           <Stack.Screen name="PreCadastro" component={PreCadastro} />
           <Stack.Screen name="Login" component={Login} />

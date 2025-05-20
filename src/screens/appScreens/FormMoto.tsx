@@ -33,6 +33,7 @@ export default function FormMoto(){
     }
         const route = useRoute();
     const { tagId } = route.params;
+    
     const navigation = useNavigation();
         const [dropdownVisible, setDropdownVisible] = useState(false);
         const [selectedTipo, setSelectedTipo] = useState<string | null>(null);

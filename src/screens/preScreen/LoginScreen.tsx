@@ -7,6 +7,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { RootStackParamList } from "../../navigation/RootNavigator";
 import Modal from "react-native-modal";
 import { useState } from "react";
+import { useAuth, useUser } from "../contexts/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const roxo = '#f900cf';
@@ -18,7 +20,25 @@ type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, '
 
 export default function Cadastro() {
     
+    const { setUsuario } = useAuth(); 
+    const [usuarioInput, setUsuarioInput] = useState('');
+    
     const navigation = useNavigation<LoginScreenNavigationProp>();
+
+
+    const handleLogin = async () =>{
+        const usuario = {
+            user: usuarioInput.trim()
+        };
+
+        if (usuario.user){
+            await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+            navigation.reset({
+                index: 0,
+                routes: [{name : 'HomeScreen'}],
+            })
+        }
+    }
 return(
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
 
@@ -37,9 +57,10 @@ return(
             <View style={styles.inputContainer}>
                 <Icon name="mail-outline" size={20} color={"#fff"}></Icon>
                 <TextInput
-                placeholder="Email"
+                placeholder="Usuário"
                 placeholderTextColor="#ccc"
                 style={styles.input}
+                onChangeText={setUsuarioInput}
                 />
             </View>
                 {/* Campo senha */}
@@ -54,19 +75,17 @@ return(
             </View>
         </View>
         <View>
-            <TouchableOpacity style={styles.button} onPress={() => {
-                
-                    navigation.reset({
-                    index: 0, 
-                    routes: [{ name: "HomeScreen" }], 
-                    });
+            <TouchableOpacity style={[styles.button,
+            { backgroundColor: usuarioInput ? "#fff" : "#ccc" }]} onPress={() => {
+                handleLogin();
                 }}
+                disabled={!usuarioInput}
                 >
                 <Text style={styles.textButton}>Login</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={{marginBottom: 30, alignItems:"center"}} onPress={() => {
-                // Navegar para a tela de cadastro
+            
                 navigation.navigate("PreCadastro");
 
             }}>

@@ -2,9 +2,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import RootNavigator from "./src/navigation/RootNavigator";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AuthProvider } from "./src/screens/contexts/UserContext";
+import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
-
   useEffect(() => {
     const clearDetectedMotos = async () => {
         try {
@@ -21,9 +22,17 @@ export default function App() {
 
 
   return (
+
+    <AuthProvider>
+
     <GestureHandlerRootView style={{ flex: 1 }}>
       <RootNavigator />
     </GestureHandlerRootView>
+ 
+    </AuthProvider>
+
+
+    
   );
   }
   

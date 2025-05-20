@@ -1,28 +1,37 @@
 import { View, Text,StyleSheet,Image, TouchableOpacity } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { useAuth, useUser } from '../contexts/UserContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 
 export default function HeaderTemplate() {
 
+    const {usuario} = useAuth();
+    const handleLogout = async () => {
+  await AsyncStorage.removeItem('usuario');
+  navigation.reset({
+    index: 0,
+    routes: [{ name: 'Login' }],
+  });
+};
         const navigation = useNavigation();
     
     return (
         <View>
             <View style={styles.header}>
             <View style={styles.topHeader}>
-                <TouchableOpacity style={styles.linkProfile} onPress={() => navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: "Landing" }],
-                                })}>
+                <TouchableOpacity style={styles.linkProfile} onPress={() => 
+                handleLogout
+                ()}>
                                             <Icon 
                                     name="person-circle-outline" 
                                     size={30} 
                                     color={"#000"}
                                     ></Icon>
-                                    <Text style={styles.TextProfile}>Arnaldo</Text>
+                                    <Text style={styles.TextProfile}>{usuario}</Text>
                        
                                     </TouchableOpacity>
                 <View>
