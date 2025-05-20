@@ -2,9 +2,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+type UsuarioType = {
+  user: string;
+};
+
 type AuthContextType = {
-  usuario: string | null;
-  setUsuario: (usuario: string) => void;
+  usuario: UsuarioType | null;
+  setUsuario: (usuario: UsuarioType) => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -13,24 +17,25 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [usuario, setUsuarioState] = useState<string | null>(null);
+  const [usuario, setUsuarioState] = useState<UsuarioType | null>(null);
 
   useEffect(() => {
-  
     const loadUsuario = async () => {
-      const storedUsuario = await AsyncStorage.getItem('userUsuario');
-      if (storedUsuario) setUsuarioState(storedUsuario);
+      const storedUsuario = await AsyncStorage.getItem('usuario');
+      if (storedUsuario) {
+        setUsuarioState(JSON.parse(storedUsuario));
+      }
     };
     loadUsuario();
   }, []);
 
-  const setUsuario = async (newUsuario: string) => {
-    await AsyncStorage.setItem('userUsuario', newUsuario);
+  const setUsuario = async (newUsuario: UsuarioType) => {
+    await AsyncStorage.setItem('usuario', JSON.stringify(newUsuario));
     setUsuarioState(newUsuario);
   };
 
   return (
-    <AuthContext.Provider value={{ usuario: usuario, setUsuario }}>
+    <AuthContext.Provider value={{ usuario, setUsuario }}>
       {children}
     </AuthContext.Provider>
   );

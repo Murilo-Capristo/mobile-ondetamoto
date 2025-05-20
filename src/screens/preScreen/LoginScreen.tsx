@@ -26,19 +26,21 @@ export default function Cadastro() {
     const navigation = useNavigation<LoginScreenNavigationProp>();
 
 
-    const handleLogin = async () =>{
-        const usuario = {
-            user: usuarioInput.trim()
-        };
+const handleLogin = async () => {
+  const usuario = {
+    user: usuarioInput.trim()
+  };
 
-        if (usuario.user){
-            await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
-            navigation.reset({
-                index: 0,
-                routes: [{name : 'HomeScreen'}],
-            })
-        }
-    }
+  if (usuario.user) {
+    await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+    setUsuario(usuario); 
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'HomeScreen' }],
+    });
+  }
+};
+
 return(
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
 

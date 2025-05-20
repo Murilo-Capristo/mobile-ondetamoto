@@ -10,7 +10,7 @@ const roxo_escuro = "#9F0095";
 
 export default function HeaderReduzida() {
     const {usuario} = useAuth();
-    
+
     const handleLogout = async () => {
   await AsyncStorage.removeItem('usuario');
   navigation.reset({
@@ -33,7 +33,7 @@ export default function HeaderReduzida() {
                     size={30} 
                     color={"#000"}
                     ></Icon>
-                    <Text style={styles.TextProfile}>{usuario}</Text>
+                    <Text style={styles.TextProfile}>{usuario?.user}</Text>
        
                     </TouchableOpacity>
                 <View>
