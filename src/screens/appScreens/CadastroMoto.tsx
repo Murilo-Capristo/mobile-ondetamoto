@@ -5,6 +5,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from '@react-navigation/native';
+
+
 const roxo = '#f900cf';
 const roxo_escuro = "#9F0095";
 const roxo_texto = "#a100ff";
@@ -126,7 +129,7 @@ export default function CadastroMoto() {
                         <View style={styles.buscando}>
                             <Text style={styles.titlebuscando}>Motos Detectadas:</Text>
                             {detectedMotos.map((moto, index) => (
-                                <TouchableOpacity key={index} style={styles.motos} onPress={() => {navigation.navigate("FormMoto")}}>
+                                <TouchableOpacity key={index} style={styles.motos} onPress={() => (navigation as any).navigate("FormMoto", { tagId: moto.tagId })}>
                                     <Text style={styles.textMotos}>
                                         {`Tag - ${moto.tagId}`}
                                     </Text>

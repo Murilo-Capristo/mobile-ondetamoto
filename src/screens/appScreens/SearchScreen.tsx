@@ -171,6 +171,13 @@ const styles = StyleSheet.create({
         borderRadius: 8,
 
       },
+      voltarBtn: {
+        flexDirection: "row",
+        alignItems: "center",
+        position: "absolute",
+        left: 20,
+
+    },
       dropdownText: {
         marginRight: 5,
         color: "#a100ff",
