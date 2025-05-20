@@ -38,6 +38,13 @@ export default function FormMoto(){
         const [selectedTipo, setSelectedTipo] = useState<string | null>(null);
         const [selectedSetor, setSelectedSetor] = useState<string | null>(null);
         const [dropdownSetorVisible, setDropdownSetorVisible] = useState(false);
+const [placa, setPlaca] = useState("");
+
+const handleLimpar = () => {
+  setPlaca("");
+  setSelectedTipo(null);
+  setSelectedSetor(null);
+};
 
 
 
@@ -125,13 +132,31 @@ export default function FormMoto(){
                     </Menu>
                 </View>
 
-                <TextInput style ={styles.placa} placeholder='Placa'/>
+                <TextInput
+                    style={styles.placa}
+                    placeholder='Placa'
+                    value={placa}
+                    onChangeText={setPlaca}
+                    />
+
             </View>
             <View style={styles.containerBotao}>
                 <TouchableOpacity style={styles.cadasBtn} onPress={() => handleCadastro()}>
                     <Text style={styles.cadasText}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>
+
+            <View style={styles.dadosContainer}>
+                <Text style={styles.dadosTitulo}>Dados preenchidos:</Text>
+                <Text style={styles.dadosTexto}>Placa: {placa || '-'}</Text>
+                <Text style={styles.dadosTexto}>Tipo: {selectedTipo || '-'}</Text>
+                <Text style={styles.dadosTexto}>Setor: {selectedSetor || '-'}</Text>
+
+                <TouchableOpacity style={styles.limparBtn} onPress={handleLimpar}>
+                    <Text style={styles.limparText}>Limpar</Text>
+                </TouchableOpacity>
+            </View>
+
                     <Modal
         visible={isModalVisible}
         transparent
@@ -202,6 +227,35 @@ const styles = StyleSheet.create({
         color: '#000',
         fontWeight: '300',
     },
+    dadosContainer: {
+  paddingHorizontal: 20,
+  marginTop: 10,
+},
+
+dadosTitulo: {
+  fontWeight: 'bold',
+  fontSize: 16,
+  marginBottom: 5,
+},
+
+dadosTexto: {
+  fontSize: 14,
+  marginBottom: 2,
+},
+
+limparBtn: {
+  marginTop: 10,
+  backgroundColor: '#aaa',
+  borderRadius: 10,
+  padding: 10,
+  alignItems: 'center',
+},
+
+limparText: {
+  color: '#fff',
+  fontWeight: 'bold',
+}
+,
     tag: {
         
 
