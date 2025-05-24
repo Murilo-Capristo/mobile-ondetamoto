@@ -4,11 +4,20 @@
 
 ---
 
+## 🧑‍💻 Integrantes do Grupo
+- Guilherme Romanholi Santos - RM557462
+- Murilo Capristo - RM556794
+- Nicolas Guinante Cavalcanti - RM557844
+  
+---
+
 ## 🚀 Como Rodar o Projeto?
 - git clone https://github.com/Murilo-Capristo/mobile-ondetamoto.git
 - cd mobile-ondetamoto
 - npm i
 - npx expo start
+  
+---
 
 ## 📱 Sobre o Projeto
 
