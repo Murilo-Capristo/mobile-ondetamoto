@@ -7,6 +7,10 @@ import HeaderTemplate from "../templates/HeaderTemplate";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation/RootNavigator";
+import { Dimensions } from "react-native";
+
+const { width } = Dimensions.get("window");
+const cardWidth = (width / 2) - 40; // metade da tela - margens
 
 
 import { JSX } from "react";
@@ -78,6 +82,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         flexDirection: "row",
         flexWrap: "wrap",
+        padding: -4
     },
     subtitle: {
         marginLeft:30,
@@ -88,19 +93,20 @@ const styles = StyleSheet.create({
 
     },
     card: {
-      padding:20,
-      justifyContent: "space-between",
-      margin: 20,
-      borderRadius: 10,
-      backgroundColor: "#F3E8FF", 
-      width: 150,
-      height: 150,
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.2,
-      shadowRadius: 4,
-      elevation: 5,
-    },
+  padding: 20,
+  justifyContent: "space-between",
+  margin: 10,
+  borderRadius: 10,
+  backgroundColor: "#F3E8FF", 
+  width: cardWidth, // <= aqui!
+  height: cardWidth, // deixa quadrado, mas pode ajustar
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 4,
+  elevation: 5,
+},
+
     iconContainer: {
         height: 60, 
         justifyContent: "center", 

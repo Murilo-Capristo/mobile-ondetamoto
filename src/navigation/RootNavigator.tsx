@@ -11,6 +11,7 @@ import SubmitScreen from "../screens/appScreens/SubmitScreen";
 import CadastroMoto from "../screens/appScreens/CadastroMoto";
 import CadastroSetor from "../screens/appScreens/CadastroSetor";
 import FormMoto from "../screens/appScreens/FormMoto";
+import SetorDetailsScreen from "../screens/appScreens/SetorDetailsScreen";
 import Splash from "../screens/Splash";
 
 
@@ -26,6 +27,7 @@ export type RootStackParamList = {
     CadastroMoto: undefined;
     CadastroSetor: undefined;
     FormMoto: undefined;
+    SetorDetailsScreen: undefined;
   };
   
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,6 +44,7 @@ export type RootStackParamList = {
           <Stack.Screen name="CadastroMoto" component={CadastroMoto} />
           <Stack.Screen name="CadastroSetor" component={CadastroSetor} />
           <Stack.Screen name="FormMoto" component={FormMoto} />
+          <Stack.Screen name="SetorDetailsScreen" component={SetorDetailsScreen}/>
 
 
           <Stack.Screen 

@@ -22,7 +22,7 @@ const tipoSetores = [
 ]
 
 export default function FormMoto(){
-    	      const [isModalVisible, setModalVisible] = useState(false);
+const [isModalVisible, setModalVisible] = useState(false);
 
   const handleCadastro = () => {
     setModalVisible(true); 
@@ -31,7 +31,7 @@ export default function FormMoto(){
       navigation.popToTop(); 
      }, 2000); 
     }
-        const route = useRoute();
+    const route = useRoute();
     const { tagId } = route.params;
     
     const navigation = useNavigation();

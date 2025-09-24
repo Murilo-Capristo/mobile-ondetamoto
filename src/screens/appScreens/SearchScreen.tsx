@@ -84,10 +84,10 @@ export default function SearchScreen() {
     return (
       <View style={styles.resultadosContainer}>
         {setoresMock.map((setor) => (
-          <View key={setor.id} style={styles.resultadoItem}>
+          <TouchableOpacity key={setor.id} style={styles.resultadoItem} onPress={() => (navigation as any).navigate("SetorDetailsScreen", { setorId: setor.id , setorNome: setor.nome })}>
             <Text style={styles.resultadoTitulo}>ID: {setor.id}</Text>
             <Text>Nome: {setor.nome}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
       </View>
     );
