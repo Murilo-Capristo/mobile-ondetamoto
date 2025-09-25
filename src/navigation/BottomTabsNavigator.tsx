@@ -1,10 +1,9 @@
-
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from "../screens/appScreens/HomeScreen";
-import SubmitScreen from "../screens/appScreens/SubmitScreen";
-import SearchScreen from "../screens/appScreens/SearchScreen";
+import HomeScreen from '../screens/appScreens/HomeScreen';
+import SubmitScreen from '../screens/appScreens/SubmitScreen';
+import SearchScreen from '../screens/appScreens/SearchScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,14 +28,14 @@ export default function BottomTabsNavigator() {
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           backgroundColor: '#DCDEDF',
-          height: 70, 
+          height: 70,
         },
         tabBarItemStyle: {
-            height: 80,
-            paddingTop: 10,
-            paddingBottom: 10,
-          },
-          
+          height: 80,
+          paddingTop: 10,
+          paddingBottom: 10,
+        },
+
         tabBarShowLabel: false,
       })}
     >

@@ -4,15 +4,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from "../../navigation/RootNavigator";
+import { RootStackParamList } from '../../navigation/RootNavigator';
 
 const roxo = '#f900cf';
-const roxo_escuro = "#9F0095";
+const roxo_escuro = '#9F0095';
 const { width, height } = Dimensions.get('window');
 const fontSizeButton = 46;
 const fontSizeText = 20;
 
-type LandingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Landing'>;
+type LandingScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Landing'
+>;
 
 export default function Landing() {
   const navigation = useNavigation<LandingScreenNavigationProp>();
@@ -20,20 +23,34 @@ export default function Landing() {
   return (
     <LinearGradient colors={[roxo, roxo_escuro]} style={styles.container}>
       <View style={styles.view1}>
-        <Image source={require('../../../assets/Vector.png')} style={styles.logo} />
+        <Image
+          source={require('../../../assets/Vector.png')}
+          style={styles.logo}
+        />
       </View>
 
       <View style={styles.view2}>
-        <Image source={require('../../../assets/Parking-rafiki.png')} style={styles.imagem} />
-        
-        <TouchableOpacity style={styles.button} onPress={() => navigation.push('Login')}>
+        <Image
+          source={require('../../../assets/Parking-rafiki.png')}
+          style={styles.imagem}
+        />
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.push('Login')}
+        >
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <Text style={styles.text}>Novo por aqui?</Text>
 
-        <TouchableOpacity style={styles.buttonCadastro} onPress={() => navigation.push('PreCadastro')}>
-          <Text style={{ color: '#000000', fontSize: fontSizeText }}>Conecte Já</Text>
+        <TouchableOpacity
+          style={styles.buttonCadastro}
+          onPress={() => navigation.push('PreCadastro')}
+        >
+          <Text style={{ color: '#000000', fontSize: fontSizeText }}>
+            Conecte Já
+          </Text>
         </TouchableOpacity>
 
         <StatusBar style="auto" />
@@ -50,9 +67,9 @@ export default function Landing() {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
-    backgroundColor: "#780371",
+    backgroundColor: '#780371',
     alignItems: 'center',
-    paddingHorizontal: "20%",
+    paddingHorizontal: '20%',
     paddingVertical: 10,
     marginTop: 20,
     marginBottom: 30,
@@ -67,15 +84,15 @@ const styles = StyleSheet.create({
   },
   buttonCadastro: {
     borderRadius: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     alignItems: 'center',
-    paddingHorizontal: "10%",
+    paddingHorizontal: '10%',
     paddingVertical: 10,
     marginTop: 20,
     marginBottom: 30,
     width: '100%',
   },
-  text:{
+  text: {
     color: '#fff',
     fontSize: fontSizeText,
     fontWeight: 'semibold',
@@ -97,7 +114,7 @@ const styles = StyleSheet.create({
     width: '70%',
     height: '70%',
     resizeMode: 'contain',
-    bottom: -30
+    bottom: -30,
   },
   view1: {
     marginBottom: 20,
@@ -107,7 +124,7 @@ const styles = StyleSheet.create({
   },
   view2: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   container: {
     flex: 1,
